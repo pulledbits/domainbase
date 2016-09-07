@@ -10,6 +10,10 @@ class Table : Source {
 		this.name = name;
 	}
 	
+	public string appendIdentifier(string query) {
+		return query ~ "`" ~ this.name ~ "`";
+	}
+	
 } unittest {
 	Table table = new Table("mytable");
 	assert(table.name == "mytable");
