@@ -22,11 +22,11 @@ class Select {
 	}
 	
 	public void select(string field) {	
-		this.fields ~= field;
+		this.fields ~= this.source.appendIdentifier("") ~ "." ~ field;
 	}
 	
 	public void select(Column column) {
-		this.select(column.identify());
+		this.fields ~= column.identify();
 	}
 	
 	
@@ -41,11 +41,11 @@ class Select {
 	assert(query.generate() == "SELECT * FROM mytable");
 	
 	query.select("foo");
-	assert(query.generate() == "SELECT foo FROM mytable");
+	assert(query.generate() == "SELECT mytable.foo FROM mytable");
 	
 	query.select("bar");
-	assert(query.generate() == "SELECT foo, bar FROM mytable");
+	assert(query.generate() == "SELECT mytable.foo, mytable.bar FROM mytable");
 	
 	query.select(new Column("test", table));
-	assert(query.generate() == "SELECT foo, bar, mytable.test FROM mytable");
+	assert(query.generate() == "SELECT mytable.foo, mytable.bar, mytable.test FROM mytable");
 }
