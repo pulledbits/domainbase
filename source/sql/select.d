@@ -25,12 +25,19 @@ class Select {
 		this.fields ~= field;
 	}
 	
+	public void select(Column column) {
+		this.select(column.identify());
+	}
+	
+	
 } unittest {
-	Select query = new Select(new class Source {
+	Source table = new class Source {
 		public string appendIdentifier(string query) {
 			return query ~ "mytable";
 		}
-	});
+	};
+	
+	Select query = new Select(table);
 	assert(query.generate() == "SELECT * FROM mytable");
 	
 	query.select("foo");
@@ -38,4 +45,7 @@ class Select {
 	
 	query.select("bar");
 	assert(query.generate() == "SELECT foo, bar FROM mytable");
+	
+	query.select(new Column("test", table));
+	assert(query.generate() == "SELECT foo, bar, mytable.test FROM mytable");
 }
