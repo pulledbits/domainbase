@@ -13,11 +13,20 @@ class Select {
 	
 	public this(Source source) {
 		this.source = source;
-		this.fields ~= "*";
 	}
 	
 	public string generate() {
-		return this.source.appendIdentifier("SELECT " ~ join(this.fields) ~ " FROM ");
+		string fields;
+		if (this.fields.length == 0) {
+			fields = "*";
+		} else {
+			fields = join(this.fields);
+		}
+		return this.source.appendIdentifier("SELECT " ~ fields ~ " FROM ");
+	}
+	
+	public void select(string field) {	
+		this.fields ~= field;
 	}
 	
 } unittest {
@@ -27,4 +36,7 @@ class Select {
 		}
 	});
 	assert(query.generate() == "SELECT * FROM mytable");
+	
+	query.select("foobar");
+	assert(query.generate() == "SELECT foobar FROM mytable");
 }
