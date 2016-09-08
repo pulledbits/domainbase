@@ -1,6 +1,4 @@
-module sql.table;
-
-import sql.select;
+import select;
 
 class Table : Source {
 	

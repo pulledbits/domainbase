@@ -1,5 +1,3 @@
-module sql.select;
-
 import std.array;
 
 interface Source {
