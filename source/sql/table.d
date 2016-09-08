@@ -11,10 +11,10 @@ class Table : Source {
 	}
 	
 	public string appendIdentifier(string query) {
-		return query ~ "`" ~ this.name ~ "`";
+		return query ~ this.name;
 	}
 	
 } unittest {
 	Table table = new Table("mytable");
-	assert(table.name == "mytable");
+	assert(table.appendIdentifier("abc ") == "abc mytable");
 }
