@@ -20,7 +20,7 @@ class Select {
 		if (this.fields.length == 0) {
 			fields = "*";
 		} else {
-			fields = join(this.fields);
+			fields = join(this.fields, ", ");
 		}
 		return this.source.appendIdentifier("SELECT " ~ fields ~ " FROM ");
 	}
@@ -37,6 +37,9 @@ class Select {
 	});
 	assert(query.generate() == "SELECT * FROM mytable");
 	
-	query.select("foobar");
-	assert(query.generate() == "SELECT foobar FROM mytable");
+	query.select("foo");
+	assert(query.generate() == "SELECT foo FROM mytable");
+	
+	query.select("bar");
+	assert(query.generate() == "SELECT foo, bar FROM mytable");
 }
