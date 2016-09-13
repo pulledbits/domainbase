@@ -1,8 +1,6 @@
 module sql.table;
 
-import sql.select;
-
-class Table : Source {
+class Table {
 	
 	private string name;
 	

@@ -1,14 +1,12 @@
 module sql.select;
 
-interface Source {
-	
-}
+import sql.table;
 
 class Select {
 	
-	private Source source;
+	private Table source;
 	
-	public this(Source source) {
+	public this(Table source) {
 		this.source = source;
 	}
 	
@@ -17,8 +15,6 @@ class Select {
 	}
 	
 } unittest {
-	Select query = new Select(new class Source {
-			
-	});
+	Select query = new Select(new Table("mytable"));
 	assert(query.generate() == "SELECT * FROM `mytable`");
 }
