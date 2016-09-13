@@ -21,6 +21,10 @@ class Select {
 		return this.source.appendIdentifier("SELECT " ~ fields ~ " FROM ");
 	}
 	
+	public void select(string field) {	
+		this.fields ~= this.source.appendIdentifier("") ~ "." ~ field;
+	}
+	
 	public void select(Column column) {
 		this.fields ~= column.identify();
 	}
