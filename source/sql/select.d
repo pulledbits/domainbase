@@ -40,10 +40,10 @@ class Select {
 	Select query = new Select(table);
 	assert(query.generate() == "SELECT * FROM mytable");
 	
-	query.select(new Column("foo", table));
+	query.select("foo");
 	assert(query.generate() == "SELECT mytable.foo FROM mytable");
 	
-	query.select(new Column("bar", table));
+	query.select("bar");
 	assert(query.generate() == "SELECT mytable.foo, mytable.bar FROM mytable");
 	
 	query.select(new Column("test", table));
