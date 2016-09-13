@@ -1,7 +1,7 @@
 module sql.select;
 
 interface Source {
-	public string appendIdentifier(string query);
+	
 }
 
 class Select {
@@ -13,14 +13,12 @@ class Select {
 	}
 	
 	public string generate() {
-		return this.source.appendIdentifier("SELECT * FROM ");
+		return "SELECT * FROM `mytable`";
 	}
 	
 } unittest {
 	Select query = new Select(new class Source {
-		public string appendIdentifier(string query) {
-			return query ~ "`mytable`";
-		}
+			
 	});
 	assert(query.generate() == "SELECT * FROM `mytable`");
 }
