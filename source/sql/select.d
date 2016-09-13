@@ -19,8 +19,8 @@ class Select {
 } unittest {
 	Select query = new Select(new class Source {
 		public string appendIdentifier(string query) {
-			return query ~ "mytable";
+			return query ~ "`mytable`";
 		}
 	});
-	assert(query.generate() == "SELECT * FROM mytable");
+	assert(query.generate() == "SELECT * FROM `mytable`");
 }
