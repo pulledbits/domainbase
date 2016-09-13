@@ -6,15 +6,14 @@ class Select {
 	
 	private Table source;
 	
-	public this(Table source) {
-		this.source = source;
+	public this() {
 	}
 	
 	public string generate() {
-		return "SELECT * FROM `mytable`";
+		return "SELECT NULL";
 	}
 	
 } unittest {
-	Select query = new Select(new Table("mytable"));
-	assert(query.generate() == "SELECT * FROM `mytable`");
+	Select query = new Select();
+	assert(query.generate() == "SELECT NULL");
 }
