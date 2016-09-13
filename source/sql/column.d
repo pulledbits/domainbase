@@ -1,23 +1,12 @@
-
-interface Source {
-	public string appendIdentifier(string query);
-}
-
 class Column {
 	
 	private string name;
-	private Source source;
 	
-	public this(string name, Source source) {
+	public this(string name) {
 		this.name = name;
-		this.source = source;
 	}
 	
 } unittest {
-	Column column = new Column("mycolumn", new class Source {
-		public string appendIdentifier(string query) {
-			return query ~ "mytable";
-		}
-	});
+	Column column = new Column("mycolumn");
 	assert(column.name == "mycolumn");
 }

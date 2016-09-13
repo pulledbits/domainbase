@@ -1,6 +1,8 @@
 import std.array;
-import column;
 
+interface Source {
+	public string appendIdentifier(string query);
+}
 
 class Select {
 	
