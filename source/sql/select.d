@@ -31,33 +31,35 @@ class Select {
 	public void from(string tableIdentifier)
 	{
 		this.tableIdentifier = tableIdentifier;
+	} 
+	unittest {
+		query = new Select();
+		query.from("mytable");
+		assert(query.generate() == "SELECT * FROM mytable");
 	}
 	
 	public void select(string text) 
 	{
 		this.fields ~= '"' ~ text ~ '"';
+	} 
+	unittest {
+		query = new Select();
+		query.select("foobar");
+		assert(query.generate() == "SELECT \"foobar\"");
 	}
 	
 	public void select(string text, string as) 
 	{
 		this.fields ~= '"' ~ text ~ "\" AS " ~ as;
+	} 
+	unittest {
+		query = new Select();
+		query.select("foo", "bar");
+		assert(query.generate() == "SELECT \"foo\" AS bar");
 	}
 	
-} unittest {
+} 
+unittest {
 	Select query = new Select();
 	assert(query.generate() == "SELECT NULL");
-	
-	
-	query = new Select();
-	query.from("mytable");
-	assert(query.generate() == "SELECT * FROM mytable");
-	
-	query = new Select();
-	query.select("foobar");
-	assert(query.generate() == "SELECT \"foobar\"");
-	
-	query = new Select();
-	query.select("foo", "bar");
-	assert(query.generate() == "SELECT \"foo\" AS bar");
-	
 }
