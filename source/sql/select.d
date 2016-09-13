@@ -1,10 +1,12 @@
 module sql.select;
 
 import sql.table;
+import std.array;
 
 class Select {
 	
 	private string tableIdentifier;
+	private string[] fields;
 	
 	public this() {
 	}
@@ -13,12 +15,23 @@ class Select {
 		if (this.tableIdentifier is null) {
 			return "SELECT NULL";
 		}
-		return "SELECT * FROM " ~ this.tableIdentifier;
+		string fieldsSQL;
+		if (this.fields.length == 0) {
+			fieldsSQL = "*";
+		} else {
+			fieldsSQL = join(this.fields, ',');
+		}
+		return "SELECT " ~ fieldsSQL ~ " FROM " ~ this.tableIdentifier;
 	}
 	
 	public void from(string tableIdentifier)
 	{
 		this.tableIdentifier = tableIdentifier;
+	}
+	
+	public void select(string text) 
+	{
+		this.fields ~= '"' ~ text ~ '"';
 	}
 	
 } unittest {
@@ -27,4 +40,8 @@ class Select {
 	
 	query.from("mytable");
 	assert(query.generate() == "SELECT * FROM mytable");
+	
+	query.select("foobar");
+	assert(query.generate() == "SELECT \"foobar\" FROM mytable");
+	
 }
