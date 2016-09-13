@@ -4,8 +4,6 @@ import sql.table;
 
 class Select {
 	
-	private Table source;
-	
 	public this() {
 	}
 	
