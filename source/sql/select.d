@@ -59,7 +59,6 @@ class Select {
 		assert(query.generate() == "SELECT \"foo\" AS bar");
 	}
 	
-	
 	public void select(int number) 
 	{
 		this.fields ~= to!string(number);
@@ -68,6 +67,16 @@ class Select {
 		Select query = new Select();
 		query.select(42);
 		assert(query.generate() == "SELECT 42");
+	}
+	
+	public void select(int number, string as) 
+	{
+		this.fields ~= to!string(number) ~ " AS " ~ as;
+	} 
+	unittest {
+		Select query = new Select();
+		query.select(42, "bar");
+		assert(query.generate() == "SELECT 42 AS bar");
 	}
 } 
 unittest {
