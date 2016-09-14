@@ -59,6 +59,15 @@ class Select {
 		assert(query.generate() == "SELECT \"foo\" AS bar");
 	}
 	
+	public void selectColumn(string tableIdentifier, string name) 
+	{
+		this.fields ~= tableIdentifier ~ '.' ~ name;
+	} 
+	unittest {
+		Select query = new Select();
+		query.selectColumn("foo", "bar");
+		assert(query.generate() == "SELECT foo.bar");
+	}
 } 
 unittest {
 	Select query = new Select();
