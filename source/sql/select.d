@@ -39,45 +39,26 @@ class Select {
 		assert(query.generate() == "SELECT * FROM mytable");
 	}
 	
-	public void select(string text) 
+	public void selectValue(string text) 
 	{
 		this.fields ~= '"' ~ text ~ '"';
 	} 
 	unittest {
 		Select query = new Select();
-		query.select("foobar");
+		query.selectValue("foobar");
 		assert(query.generate() == "SELECT \"foobar\"");
 	}
 	
-	public void select(string text, string as) 
+	public void selectValue(string text, string as) 
 	{
 		this.fields ~= '"' ~ text ~ "\" AS " ~ as;
 	} 
 	unittest {
 		Select query = new Select();
-		query.select("foo", "bar");
+		query.selectValue("foo", "bar");
 		assert(query.generate() == "SELECT \"foo\" AS bar");
 	}
 	
-	public void select(int number) 
-	{
-		this.fields ~= to!string(number);
-	} 
-	unittest {
-		Select query = new Select();
-		query.select(42);
-		assert(query.generate() == "SELECT 42");
-	}
-	
-	public void select(int number, string as) 
-	{
-		this.fields ~= to!string(number) ~ " AS " ~ as;
-	} 
-	unittest {
-		Select query = new Select();
-		query.select(42, "bar");
-		assert(query.generate() == "SELECT 42 AS bar");
-	}
 } 
 unittest {
 	Select query = new Select();
