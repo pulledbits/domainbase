@@ -2,6 +2,7 @@ module sql.select;
 
 import sql.table;
 import std.array;
+import std.conv;
 
 class Select {
 	
@@ -33,7 +34,7 @@ class Select {
 		this.tableIdentifier = tableIdentifier;
 	} 
 	unittest {
-		query = new Select();
+		Select query = new Select();
 		query.from("mytable");
 		assert(query.generate() == "SELECT * FROM mytable");
 	}
@@ -43,7 +44,7 @@ class Select {
 		this.fields ~= '"' ~ text ~ '"';
 	} 
 	unittest {
-		query = new Select();
+		Select query = new Select();
 		query.select("foobar");
 		assert(query.generate() == "SELECT \"foobar\"");
 	}
@@ -53,11 +54,21 @@ class Select {
 		this.fields ~= '"' ~ text ~ "\" AS " ~ as;
 	} 
 	unittest {
-		query = new Select();
+		Select query = new Select();
 		query.select("foo", "bar");
 		assert(query.generate() == "SELECT \"foo\" AS bar");
 	}
 	
+	
+	public void select(int number) 
+	{
+		this.fields ~= to!string(number);
+	} 
+	unittest {
+		Select query = new Select();
+		query.select(42);
+		assert(query.generate() == "SELECT 42");
+	}
 } 
 unittest {
 	Select query = new Select();
