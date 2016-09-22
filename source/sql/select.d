@@ -6,7 +6,6 @@ import std.conv;
 
 class Select {
 	
-	private string tableIdentifier;
 	private string[] fields;
 	
 	public this() {
@@ -14,9 +13,7 @@ class Select {
 	
 	public string generate() {
 		string source = "";
-		if (this.tableIdentifier !is null) {
-			source = " FROM " ~ this.tableIdentifier;
-		} else if (this.fields.length == 0) {
+		if (this.fields.length == 0) {
 			return "SELECT NULL";
 		}
 		
@@ -27,16 +24,6 @@ class Select {
 			fieldsSQL = join(this.fields, ',');
 		}
 		return "SELECT " ~ fieldsSQL ~ source;
-	}
-	
-	public void from(string tableIdentifier)
-	{
-		this.tableIdentifier = tableIdentifier;
-	} 
-	unittest {
-		Select query = new Select();
-		query.from("mytable");
-		assert(query.generate() == "SELECT * FROM mytable");
 	}
 	
 	public void selectValue(string text) 
