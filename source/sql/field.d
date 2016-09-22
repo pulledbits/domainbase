@@ -1,4 +1,6 @@
-interface Field
+import part;
+
+interface Field : Part
 {
 	
 }
