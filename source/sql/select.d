@@ -1,5 +1,7 @@
 module sql.select;
 
+import field;
+
 import sql.table;
 import std.array;
 import std.conv;
@@ -27,34 +29,32 @@ class Select
 		return "SELECT " ~ fieldsSQL ~ source;
 	}
 	
-	public void selectValue(string text) 
+	public void select(Field field) 
 	{
-		this.fields ~= '"' ~ text ~ '"';
+		this.fields ~= field.generate();
 	} 
 	unittest {
 		Select query = new Select();
-		query.selectValue("foobar");
-		assert(query.generate() == "SELECT \"foobar\"");
+		query.select(new class Field {
+			public string generate() {
+				return "FooBar";
+			}
+		});
+		assert(query.generate() == "SELECT FooBar");
 	}
 	
-	public void selectValue(string text, string as) 
+	public void select(Field field, string as) 
 	{
-		this.fields ~= '"' ~ text ~ "\" AS " ~ as;
+		this.fields ~= field.generate() ~ " AS " ~ as;
 	} 
 	unittest {
 		Select query = new Select();
-		query.selectValue("foo", "bar");
-		assert(query.generate() == "SELECT \"foo\" AS bar");
-	}
-	
-	public void selectColumn(string tableIdentifier, string name) 
-	{
-		this.fields ~= tableIdentifier ~ '.' ~ name;
-	} 
-	unittest {
-		Select query = new Select();
-		query.selectColumn("foo", "bar");
-		assert(query.generate() == "SELECT foo.bar");
+		query.select(new class Field {
+			public string generate() {
+				return "FooBar";
+			}
+		}, "bar");
+		assert(query.generate() == "SELECT FooBar AS bar");
 	}
 } 
 unittest {
