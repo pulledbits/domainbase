@@ -1,6 +1,7 @@
 
+import field;
 
-class Value {
+class Value : Field {
 	
 	private string text;
 	

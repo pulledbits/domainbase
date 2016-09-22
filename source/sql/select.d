@@ -4,7 +4,8 @@ import sql.table;
 import std.array;
 import std.conv;
 
-class Select {
+class Select 
+{
 	
 	private string[] fields;
 	

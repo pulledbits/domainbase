@@ -1,6 +1,7 @@
 
+import field;
 
-class Column {
+class Column : Field {
 	
 	private string tableIdentifier;
 	private string name;
