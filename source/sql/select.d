@@ -1,12 +1,13 @@
 module sql.select;
 
+import part;
 import field;
 
 import sql.table;
 import std.array;
 import std.conv;
 
-class Select 
+class Select : Part
 {
 	
 	private string[] fields;
