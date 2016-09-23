@@ -4,7 +4,6 @@ import sql.part;
 import sql.field;
 
 import std.array;
-import std.conv;
 
 class Select : Part
 {
