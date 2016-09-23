@@ -1,4 +1,4 @@
-import select;
+import sql.select;
 import sql.column;
 
 class Table {

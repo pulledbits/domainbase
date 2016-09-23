@@ -1,3 +1,5 @@
+module sql.select;
+
 import sql.part;
 import sql.field;
 import table;
