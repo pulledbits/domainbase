@@ -1,5 +1,5 @@
 import select;
-import column;
+import sql.column;
 
 class Table {
 	
