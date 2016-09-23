@@ -1,4 +1,4 @@
-module sql.queries;
+module sql.select;
 
 import sql.part;
 import sql.field;
