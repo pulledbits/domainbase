@@ -1,5 +1,6 @@
+module sql.value;
 
-import field;
+import sql.field;
 
 class Value : Field {
 	

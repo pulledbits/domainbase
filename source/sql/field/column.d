@@ -1,5 +1,6 @@
+module sql.column;
 
-import field;
+import sql.field;
 
 class Column : Field {
 	
