@@ -2,7 +2,6 @@ module sql.select;
 
 import sql.part;
 import sql.field;
-import table;
 
 import std.array;
 import std.conv;

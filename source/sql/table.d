@@ -1,3 +1,5 @@
+module sql.table;
+
 import sql.select;
 import sql.column;
 
