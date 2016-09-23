@@ -1,7 +1,7 @@
 module sql.table;
 
 import sql.dialect.mysql.select;
-import sql.column;
+import sql.dialect.mysql.field.column;
 
 class Table {
 	
