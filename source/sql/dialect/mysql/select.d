@@ -1,11 +1,10 @@
 module sql.dialect.mysql.select;
 
-import sql.queries;
 import sql.field;
 
 import std.array;
 
-class Select : sql.queries.Select
+class Select : sql.select.Select
 {
 	
 	private string[] fields;
