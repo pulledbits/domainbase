@@ -1,5 +1,3 @@
-module sql.table;
-
 class Table {
 	
 	private string identifier;

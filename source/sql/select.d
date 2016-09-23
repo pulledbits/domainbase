@@ -1,9 +1,7 @@
-module sql.select;
-
 import part;
 import field;
+import table;
 
-import sql.table;
 import std.array;
 import std.conv;
 
