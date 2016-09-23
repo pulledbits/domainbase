@@ -1,6 +1,6 @@
 module sql.field;
 
-import part;
+import sql.part;
 
 interface Field : Part
 {
