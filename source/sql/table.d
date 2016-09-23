@@ -2,13 +2,13 @@ module sql.table;
 
 class Table {
 	
-	private string name;
+	private string identifier;
 	
-	public this(string name) {
-		this.name = name;
+	public this(string identifier) {
+		this.identifier = identifier;
 	}
 	
 } unittest {
 	Table table = new Table("mytable");
-	assert(table.name == "mytable");
+	assert(table.identifier == "mytable");
 }
