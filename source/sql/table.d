@@ -16,8 +16,7 @@ class Table {
 		Select query = new Select();
 		query.select(new Column(this.identifier, column));
 		return query;
-	}
-	unittest {
+	} unittest {
 		Table table = new Table("mytable");
 		Select query = table.select("mycolumn");
 		
