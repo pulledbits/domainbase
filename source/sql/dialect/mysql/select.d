@@ -1,4 +1,4 @@
-module sql.dialect.mysql;
+module sql.dialect.mysql.select;
 
 import sql.queries;
 import sql.field;
