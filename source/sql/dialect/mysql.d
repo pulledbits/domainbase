@@ -1,4 +1,4 @@
-module sql.select;
+module sql.dialect.mysql;
 
 import sql.part;
 import sql.field;
