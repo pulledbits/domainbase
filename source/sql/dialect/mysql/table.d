@@ -20,7 +20,7 @@ class Table {
 		Table table = new Table("mytable");
 		Select query = table.select("mycolumn");
 		
-		assert(query.generate() == "SELECT mytable.mycolumn");
+		assert(query.generate() == "SELECT `mytable`.`mycolumn`");
 	}
 	
 } unittest {
