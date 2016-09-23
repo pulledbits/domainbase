@@ -1,4 +1,4 @@
-module sql.value;
+module sql.dialect.mysql.field.value;
 
 import sql.field;
 

@@ -1,4 +1,4 @@
-module sql.column;
+module sql.dialect.mysql.field.column;
 
 import sql.field;
 
