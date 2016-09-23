@@ -1,5 +1,5 @@
-import part;
-import field;
+import sql.part;
+import sql.field;
 import table;
 
 import std.array;
