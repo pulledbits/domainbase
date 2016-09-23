@@ -1,6 +1,6 @@
-module sql.dbms;
+module sql.database;
 
-interface DBMS
+interface Database
 {
 	
 	public sql.schema.Schema useSchema(string identifier);
