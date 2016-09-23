@@ -15,10 +15,10 @@ class Column : Field {
 	
 	public string generate()
 	{
-		return tableIdentifier ~ '.' ~ name;
+		return "`" ~ tableIdentifier ~ "`.`" ~ name ~ "`";
 	}
 	unittest {
 		Column field = new Column("foo", "bar");
-		assert(field.generate() == "foo.bar");
+		assert(field.generate() == "`foo`.`bar`");
 	}
 }
