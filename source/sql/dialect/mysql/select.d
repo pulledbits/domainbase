@@ -1,5 +1,6 @@
 module sql.dialect.mysql.select;
 
+import sql.dialect.mysql.table;
 import sql.field;
 
 import std.array;
@@ -8,6 +9,7 @@ class Select : sql.select.Select
 {
 	
 	private string[] fields;
+	private Table from;
 	
 	public this() {
 	}
@@ -16,11 +18,24 @@ class Select : sql.select.Select
 		assert(query.generate() == "SELECT NULL");
 	}
 	
+	public this(Table from) {
+		this.from = from;
+	}
+	unittest {
+		Select query = new Select(new Table("mytable"));
+		assert(query.generate() == "SELECT NULL FROM `mytable`");		
+		
+	}
 	
 	public string generate() {
 		string source = "";
+		
+		if (this.from !is null) {
+			source = " FROM `mytable`"; 
+		}
+		
 		if (this.fields.length == 0) {
-			return "SELECT NULL";
+			return "SELECT NULL" ~ source;
 		}
 		
 		string fieldsSQL;
@@ -29,6 +44,7 @@ class Select : sql.select.Select
 		} else {
 			fieldsSQL = join(this.fields, ',');
 		}
+		
 		return "SELECT " ~ fieldsSQL ~ source;
 	}
 	
