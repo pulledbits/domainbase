@@ -11,6 +11,11 @@ class Select : sql.select.Select
 	
 	public this() {
 	}
+	unittest {
+		Select query = new Select();
+		assert(query.generate() == "SELECT NULL");
+	}
+	
 	
 	public string generate() {
 		string source = "";
@@ -55,7 +60,3 @@ class Select : sql.select.Select
 		assert(query.generate() == "SELECT FooBar AS bar");
 	}
 } 
-unittest {
-	Select query = new Select();
-	assert(query.generate() == "SELECT NULL");
-}
