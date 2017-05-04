@@ -3,9 +3,8 @@ module sql.select;
 import sql.part;
 import sql.field;
 
-interface Select : Part {
-	
-	public void select(Field field);
-	public void select(Field field, string as);
-	
+interface Select : Part
+{
+    public void select(Field field);
+    public void select(Field field, string as);
 }

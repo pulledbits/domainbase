@@ -4,5 +4,5 @@ import sql.part;
 
 interface Field : Part
 {
-	
+
 }
