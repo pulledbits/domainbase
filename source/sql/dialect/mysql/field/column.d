@@ -2,23 +2,25 @@ module sql.dialect.mysql.field.column;
 
 import sql.field;
 
-class Column : Field {
-	
-	private string tableIdentifier;
-	private string name;
-	
-	public this(string tableIdentifier, string name) 
-	{
-		this.tableIdentifier = tableIdentifier;
-		this.name = name;
-	}
-	
-	public string generate()
-	{
-		return "`" ~ tableIdentifier ~ "`.`" ~ name ~ "`";
-	}
-	unittest {
-		Column field = new Column("foo", "bar");
-		assert(field.generate() == "`foo`.`bar`");
-	}
+class Column : Field
+{
+    private string tableIdentifier;
+    private string name;
+
+    public this(string tableIdentifier, string name)
+    {
+        this.tableIdentifier = tableIdentifier;
+        this.name = name;
+    }
+
+    public string generate()
+    {
+        return "`" ~ tableIdentifier ~ "`.`" ~ name ~ "`";
+    }
+
+    unittest
+    {
+        Column field = new Column("foo", "bar");
+        assert(field.generate() == "`foo`.`bar`");
+    }
 }
