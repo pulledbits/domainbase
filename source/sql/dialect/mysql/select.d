@@ -62,31 +62,34 @@ class Select : sql.select.Select
     unittest
     {
         Select query = new Select();
+        Field field = new class Field
+        {
+            public string generate()
+            {
+                return "FooBar";
+            }
+        };
+
+        query.select(field);
+
+        assert(query.generate() == "SELECT FooBar");
+    }
+
+    public void select(Field field, string as)
+    {
+        this.fields ~= field.generate() ~ " AS " ~ as;
+    }
+
+    unittest
+    {
+        Select query = new Select();
         query.select(new class Field
         {
             public string generate()
             {
                 return "FooBar";}
             }
-);
-            assert(query.generate() == "SELECT FooBar");
-        }
-
-        public void select(Field field, string as)
-        {
-            this.fields ~= field.generate() ~ " AS " ~ as;
-        }
-
-        unittest
-        {
-            Select query = new Select();
-            query.select(new class Field
-            {
-                public string generate()
-                {
-                    return "FooBar";}
-                }
 , "bar");
-                assert(query.generate() == "SELECT FooBar AS bar");
-            }
+            assert(query.generate() == "SELECT FooBar AS bar");
         }
+    }
