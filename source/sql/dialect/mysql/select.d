@@ -1,13 +1,12 @@
 module sql.dialect.mysql.select;
 
 import sql.dialect.mysql.table;
+import sql.fields;
 import sql.field;
-
-import std.array;
 
 class Select : sql.select.Select
 {
-    private string[] fields;
+    private Fields fields;
     private Table from;
 
     public this()
@@ -33,7 +32,7 @@ class Select : sql.select.Select
 
     public string generate()
     {
-        string query = "SELECT";
+        string query  = "SELECT";
         string source = "";
 
         if (this.from !is null)
@@ -41,56 +40,38 @@ class Select : sql.select.Select
             source = " FROM `mytable`";
         }
 
-        string fieldsSQL = " ";
-        if (this.fields.length == 0)
+        if (this.fields is null)
         {
-            fieldsSQL ~= "NULL";
+            query ~= " NULL";
         }
         else
         {
-            fieldsSQL ~= join(this.fields, ',');
+            query ~= " " ~ this.fields.generate();
         }
 
-        return query ~ fieldsSQL ~ source;
+        return query ~ source;
     }
 
-    public void select(Field field)
+    public void select(Fields fields)
     {
-        this.fields ~= field.generate();
+        this.fields = fields;
     }
 
     unittest
     {
-        Select query = new Select();
-        Field field = new class Field
+        Select query  = new Select();
+        Fields fields = new Fields();
+        Field  field  = new class Field
         {
             public string generate()
             {
                 return "FooBar";
             }
         };
+        fields.append(field);
 
-        query.select(field);
+        query.select(fields);
 
         assert(query.generate() == "SELECT FooBar");
-    }
-
-    public void select(Field field, string as)
-    {
-        this.fields ~= field.generate() ~ " AS " ~ as;
-    }
-
-    unittest
-    {
-        Select query = new Select();
-        Field field = new class Field
-        {
-            public string generate()
-            {
-                return "FooBar";
-            }
-        };
-        query.select(field, "bar");
-        assert(query.generate() == "SELECT FooBar AS bar");
     }
 }

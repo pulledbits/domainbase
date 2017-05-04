@@ -12,19 +12,16 @@ class Table
         this.identifier = identifier;
     }
 
-    public Select select(string column)
+    public Select select()
     {
-        Select query = new Select();
-        query.select(new Column(this.identifier, column));
-        return query;
+        return new Select();
     }
 
     unittest
     {
         Table table = new Table("mytable");
-        Select query = table.select("mycolumn");
-
-        assert(query.generate() == "SELECT `mytable`.`mycolumn`");
+        Select query = table.select();
+        assert(query.generate() == "SELECT NULL");
     }
 
 }
