@@ -83,13 +83,14 @@ class Select : sql.select.Select
     unittest
     {
         Select query = new Select();
-        query.select(new class Field
+        Field field = new class Field
         {
             public string generate()
             {
-                return "FooBar";}
+                return "FooBar";
             }
-, "bar");
-            assert(query.generate() == "SELECT FooBar AS bar");
-        }
+        };
+        query.select(field, "bar");
+        assert(query.generate() == "SELECT FooBar AS bar");
     }
+}
