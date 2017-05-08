@@ -11,6 +11,7 @@ class Select : sql.select.Select
 
     public this()
     {
+        this.fields = new Fields();
     }
 
     unittest
@@ -21,6 +22,7 @@ class Select : sql.select.Select
 
     public this(Table from)
     {
+        this();
         this.from = from;
     }
 
@@ -32,24 +34,12 @@ class Select : sql.select.Select
 
     public string generate()
     {
-        string query  = "SELECT";
-        string source = "";
-
+        string query = "SELECT " ~ this.fields.generate();
         if (this.from !is null)
         {
-            source = " FROM `mytable`";
+            return query ~ " FROM `mytable`";
         }
-
-        if (this.fields is null)
-        {
-            query ~= " NULL";
-        }
-        else
-        {
-            query ~= " " ~ this.fields.generate();
-        }
-
-        return query ~ source;
+        return query;
     }
 
     public void select(Fields fields)
