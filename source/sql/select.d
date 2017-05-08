@@ -6,5 +6,4 @@ import sql.field;
 
 interface Select : Part
 {
-    public void select(Fields fields);
 }

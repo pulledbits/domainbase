@@ -8,26 +8,14 @@ class Select : sql.select.Select
 {
     private Fields fields;
 
-    public this()
+    public this(Fields fields)
     {
-        this.fields = new Fields();
+        this.fields = fields;
     }
 
     unittest
     {
-        Select query = new Select();
-        assert(query.generate() == "SELECT NULL");
-    }
-
-    public this(Table from)
-    {
-        this();
-        this.fields = new Fields(from);
-    }
-
-    unittest
-    {
-        Select query = new Select(new Table("mytable"));
+        Select query = new Select(new Fields(new Table("mytable")));
         assert(query.generate() == "SELECT NULL FROM `mytable`");
     }
 
@@ -36,15 +24,10 @@ class Select : sql.select.Select
         return "SELECT " ~ this.fields.generate();
     }
 
-    public void select(Fields fields)
-    {
-        this.fields = fields;
-    }
-
     unittest
     {
-        Select query  = new Select();
         Fields fields = new Fields();
+        Select query  = new Select(fields);
         Field  field  = new class Field
         {
             public string generate()
@@ -53,8 +36,6 @@ class Select : sql.select.Select
             }
         };
         fields.append(field);
-
-        query.select(fields);
 
         assert(query.generate() == "SELECT FooBar");
     }
