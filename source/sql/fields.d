@@ -2,30 +2,42 @@ module sql.fields;
 
 import sql.part;
 import sql.field;
-import sql.dialect.mysql.table;
+import sql.source;
 import std.array;
 
 class Fields : Part
 {
-    private Table source;
+    private Source source;
     private string[] fields;
 
     this() {
     }
 
-    this(Table source) {
+    this(Source source) {
         this.source = source;
     }
     unittest
     {
-        Fields fields = new Fields(new Table("mytable"));
+        Fields fields = new Fields(new class Source
+        {
+            public string escapedIdentifier()
+            {
+                return "`mytable`";
+            }
+        });
         assert(fields.generate() == "NULL FROM `mytable`");
     }
 
     unittest
     {
-        Fields fields = new Fields(new Table("mytable"));
-        Field  field  = new class Field
+        Fields fields = new Fields(new class Source
+        {
+            public string escapedIdentifier()
+            {
+                return "`mytable`";
+            }
+        });
+        Field field = new class Field
         {
             public string generate()
             {
