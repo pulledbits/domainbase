@@ -13,11 +13,6 @@ class Table
         this.identifier = identifier;
     }
 
-    public Select select()
-    {
-        return new Select(new Fields(this));
-    }
-
     public string escapedIdentifier()
     {
         return "`" ~ this.identifier ~ "`";
