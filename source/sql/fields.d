@@ -2,11 +2,36 @@ module sql.fields;
 
 import sql.part;
 import sql.field;
+import sql.dialect.mysql.table;
 import std.array;
 
 class Fields : Part
 {
+    private Table source;
     private string[] fields;
+
+    this() {
+    }
+
+    this(Table source) {
+        this.source = source;
+    }
+
+    unittest
+    {
+        Fields fields = new Fields(new Table("mytable"));
+        Field  field  = new class Field
+        {
+            public string generate()
+            {
+                return "`FooBar`";
+            }
+        };
+
+        fields.append(field);
+
+        assert(fields.generate() == "`mytable`.`FooBar`");
+    }
 
     public string generate()
     {
@@ -24,7 +49,12 @@ class Fields : Part
 
     public void append(Field field)
     {
-        this.fields ~= field.generate();
+        string fieldSQL = "";
+        if (this.source !is null)
+        {
+            fieldSQL ~= this.source.escapedIdentifier ~ ".";
+        }
+        this.fields ~= fieldSQL ~ field.generate();
     }
 
     unittest
