@@ -30,7 +30,7 @@ class Fields : Part
 
         fields.append(field);
 
-        assert(fields.generate() == "`mytable`.`FooBar`");
+        assert(fields.generate() == "`mytable`.`FooBar` FROM `mytable`");
     }
 
     public string generate()
@@ -43,6 +43,11 @@ class Fields : Part
         else
         {
             fieldsSQL ~= join(this.fields, ',');
+        }
+
+        if (this.source !is null)
+        {
+            return fieldsSQL ~ " FROM " ~ this.source.escapedIdentifier();
         }
         return fieldsSQL;
     }
