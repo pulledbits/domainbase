@@ -16,6 +16,11 @@ class Fields : Part
     this(Table source) {
         this.source = source;
     }
+    unittest
+    {
+        Fields fields = new Fields(new Table("mytable"));
+        assert(fields.generate() == "NULL FROM `mytable`");
+    }
 
     unittest
     {
