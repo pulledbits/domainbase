@@ -23,7 +23,8 @@ class Select : sql.select.Select
     public this(Table from)
     {
         this();
-        this.from = from;
+        this.fields = new Fields(from);
+        this.from   = from;
     }
 
     unittest
@@ -34,12 +35,7 @@ class Select : sql.select.Select
 
     public string generate()
     {
-        string query = "SELECT " ~ this.fields.generate();
-        if (this.from !is null)
-        {
-            return query ~ " FROM " ~ this.from.escapedIdentifier();
-        }
-        return query;
+        return "SELECT " ~ this.fields.generate();
     }
 
     public void select(Fields fields)
