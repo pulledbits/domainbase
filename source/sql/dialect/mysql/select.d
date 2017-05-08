@@ -37,7 +37,7 @@ class Select : sql.select.Select
         string query = "SELECT " ~ this.fields.generate();
         if (this.from !is null)
         {
-            return query ~ " FROM `mytable`";
+            return query ~ " FROM " ~ this.from.escapedIdentifier();
         }
         return query;
     }
