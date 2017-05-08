@@ -1,7 +1,5 @@
 module sql.dialect.mysql.table;
 
-import sql.dialect.mysql.select;
-import sql.fields;
 import sql.dialect.mysql.field.column;
 
 class Table
