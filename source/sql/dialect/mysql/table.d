@@ -17,13 +17,16 @@ class Table
         return new Select();
     }
 
+    public string escapedIdentifier()
+    {
+        return "`" ~ this.identifier ~ "`";
+    }
+
     unittest
     {
         Table table = new Table("mytable");
-        Select query = table.select();
-        assert(query.generate() == "SELECT NULL");
+        assert(table.escapedIdentifier() == "`mytable`");
     }
-
 }
 
 unittest
