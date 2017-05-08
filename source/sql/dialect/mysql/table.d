@@ -1,8 +1,10 @@
 module sql.dialect.mysql.table;
 
 import sql.dialect.mysql.field.column;
+import sql.source;
 
-class Table
+
+class Table : Source
 {
     private string identifier;
 
