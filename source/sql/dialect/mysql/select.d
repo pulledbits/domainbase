@@ -1,6 +1,5 @@
 module sql.dialect.mysql.select;
 
-import sql.dialect.mysql.table;
 import sql.fields;
 import sql.field;
 
@@ -11,12 +10,6 @@ class Select : sql.select.Select
     public this(Fields fields)
     {
         this.fields = fields;
-    }
-
-    unittest
-    {
-        Select query = new Select(new Fields(new Table("mytable")));
-        assert(query.generate() == "SELECT NULL FROM `mytable`");
     }
 
     public string generate()
