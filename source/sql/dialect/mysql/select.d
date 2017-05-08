@@ -7,7 +7,6 @@ import sql.field;
 class Select : sql.select.Select
 {
     private Fields fields;
-    private Table from;
 
     public this()
     {
@@ -24,7 +23,6 @@ class Select : sql.select.Select
     {
         this();
         this.fields = new Fields(from);
-        this.from   = from;
     }
 
     unittest
