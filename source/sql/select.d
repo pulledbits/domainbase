@@ -6,18 +6,13 @@ import sql.field;
 
 class Select : Part
 {
+    private string sourceEscapedIdentifier;
     private Fields fields;
 
     public this(Fields fields)
     {
         this.fields = fields;
     }
-
-    public string generate()
-    {
-        return "SELECT " ~ this.fields.generate();
-    }
-
     unittest
     {
         Fields fields = new Fields();
@@ -32,5 +27,27 @@ class Select : Part
         Select query = new Select(fields);
 
         assert(query.generate() == "SELECT FooBar");
+    }
+
+    public this(Fields fields, string sourceEscapedIdentifier)
+    {
+        this.fields                  = fields;
+        this.sourceEscapedIdentifier = sourceEscapedIdentifier;
+    }
+    unittest
+    {
+        Fields fields = new Fields();
+        Select query  = new Select(fields, "`mytable`");
+        assert(query.generate() == "SELECT NULL FROM `mytable`");
+    }
+
+    public string generate()
+    {
+        string sql = "SELECT " ~ this.fields.generate();
+        if (this.sourceEscapedIdentifier !is null)
+        {
+            sql ~= " FROM " ~ this.sourceEscapedIdentifier;
+        }
+        return sql;
     }
 }
