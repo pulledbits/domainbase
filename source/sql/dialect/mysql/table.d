@@ -13,6 +13,17 @@ class Table : Source
         this.identifier = identifier;
     }
 
+    public string generate()
+    {
+        return "FROM " ~ this.escapedIdentifier();
+    }
+
+    unittest
+    {
+        Table table = new Table("mytable");
+        assert(table.generate() == "FROM `mytable`");
+    }
+
     public string escapedIdentifier()
     {
         return "`" ~ this.identifier ~ "`";

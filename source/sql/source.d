@@ -1,6 +1,8 @@
 module sql.source;
 
-interface Source
+import sql.part;
+
+interface Source : Part
 {
     string escapedIdentifier();
 }
