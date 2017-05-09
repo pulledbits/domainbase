@@ -13,6 +13,22 @@ class Select : Part
     {
         this.fields = fields;
     }
+
+    public this(Fields fields, string sourceEscapedIdentifier)
+    {
+        this.fields                  = fields;
+        this.sourceEscapedIdentifier = sourceEscapedIdentifier;
+    }
+
+    public string generate()
+    {
+        string sql = "SELECT " ~ this.fields.generate();
+        if (this.sourceEscapedIdentifier !is null)
+        {
+            sql ~= " FROM " ~ this.sourceEscapedIdentifier;
+        }
+        return sql;
+    }
     unittest
     {
         Fields fields = new Fields();
@@ -28,26 +44,10 @@ class Select : Part
 
         assert(query.generate() == "SELECT FooBar");
     }
-
-    public this(Fields fields, string sourceEscapedIdentifier)
-    {
-        this.fields                  = fields;
-        this.sourceEscapedIdentifier = sourceEscapedIdentifier;
-    }
     unittest
     {
         Fields fields = new Fields();
         Select query  = new Select(fields, "`mytable`");
         assert(query.generate() == "SELECT NULL FROM `mytable`");
-    }
-
-    public string generate()
-    {
-        string sql = "SELECT " ~ this.fields.generate();
-        if (this.sourceEscapedIdentifier !is null)
-        {
-            sql ~= " FROM " ~ this.sourceEscapedIdentifier;
-        }
-        return sql;
     }
 }
