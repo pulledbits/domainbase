@@ -20,6 +20,11 @@ class Fields : Part
     {
         Fields fields = new Fields(new class Source
         {
+            public string generate()
+            {
+                return "FROM " ~ this.escapedIdentifier();
+            }
+
             public string escapedIdentifier()
             {
                 return "`mytable`";
@@ -32,6 +37,11 @@ class Fields : Part
     {
         Fields fields = new Fields(new class Source
         {
+            public string generate()
+            {
+                return "FROM " ~ this.escapedIdentifier();
+            }
+
             public string escapedIdentifier()
             {
                 return "`mytable`";
@@ -64,7 +74,7 @@ class Fields : Part
 
         if (this.source !is null)
         {
-            return fieldsSQL ~ " FROM " ~ this.source.escapedIdentifier();
+            return fieldsSQL ~ " " ~ this.source.generate();
         }
         return fieldsSQL;
     }
@@ -74,7 +84,7 @@ class Fields : Part
         string fieldSQL = "";
         if (this.source !is null)
         {
-            fieldSQL ~= this.source.escapedIdentifier ~ ".";
+            fieldSQL ~= this.source.escapedIdentifier() ~ ".";
         }
         this.fields ~= fieldSQL ~ field.generate();
     }
