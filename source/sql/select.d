@@ -21,7 +21,6 @@ class Select : Part
     unittest
     {
         Fields fields = new Fields();
-        Select query  = new Select(fields);
         Field  field  = new class Field
         {
             public string generate()
@@ -30,6 +29,7 @@ class Select : Part
             }
         };
         fields.append(field);
+        Select query = new Select(fields);
 
         assert(query.generate() == "SELECT FooBar");
     }
