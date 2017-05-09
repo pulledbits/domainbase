@@ -2,52 +2,29 @@ module sql.fields;
 
 import sql.part;
 import sql.field;
-import sql.source;
 import std.array;
 
 class Fields : Part
 {
-    private Source source;
+    private string sourceEscapedIdentifier;
     private string[] fields;
 
     this() {
     }
 
-    this(Source source) {
-        this.source = source;
+    this(string sourceEscapedIdentifier) {
+        this.sourceEscapedIdentifier = sourceEscapedIdentifier;
     }
     unittest
     {
-        Fields fields = new Fields(new class Source
-        {
-            public string generate()
-            {
-                return "FROM " ~ this.escapedIdentifier();
-            }
-
-            public string escapedIdentifier()
-            {
-                return "`mytable`";
-            }
-        });
+        Fields fields = new Fields("`mytable`");
         assert(fields.generate() == "NULL FROM `mytable`");
     }
 
     unittest
     {
-        Fields fields = new Fields(new class Source
-        {
-            public string generate()
-            {
-                return "FROM " ~ this.escapedIdentifier();
-            }
-
-            public string escapedIdentifier()
-            {
-                return "`mytable`";
-            }
-        });
-        Field field = new class Field
+        Fields fields = new Fields("`mytable`");
+        Field  field  = new class Field
         {
             public string generate()
             {
@@ -72,9 +49,9 @@ class Fields : Part
             fieldsSQL ~= join(this.fields, ',');
         }
 
-        if (this.source !is null)
+        if (this.sourceEscapedIdentifier !is null)
         {
-            return fieldsSQL ~ " " ~ this.source.generate();
+            return fieldsSQL ~ " FROM " ~ this.sourceEscapedIdentifier;
         }
         return fieldsSQL;
     }
