@@ -99,23 +99,4 @@ class Fields : Part
 
         assert(fields.generate() == "FooBar");
     }
-
-    public void append(Field field, string as)
-    {
-        this.fields ~= field.generate() ~ " AS " ~ as;
-    }
-
-    unittest
-    {
-        Fields fields = new Fields();
-        Field  field  = new class Field
-        {
-            public string generate()
-            {
-                return "FooBar";
-            }
-        };
-        fields.append(field, "bar");
-        assert(fields.generate() == "FooBar AS bar");
-    }
 }

@@ -4,18 +4,18 @@ import sql.field;
 
 class Column : Field
 {
-    private string tableIdentifier;
+    private string sourceIdentifier;
     private string name;
 
-    public this(string tableIdentifier, string name)
+    public this(string sourceIdentifier, string name)
     {
-        this.tableIdentifier = tableIdentifier;
-        this.name = name;
+        this.sourceIdentifier = sourceIdentifier;
+        this.name             = name;
     }
 
     public string generate()
     {
-        return "`" ~ tableIdentifier ~ "`.`" ~ name ~ "`";
+        return "`" ~ sourceIdentifier ~ "`.`" ~ name ~ "`";
     }
 
     unittest
