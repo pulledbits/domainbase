@@ -57,7 +57,7 @@ class Fields : Part
 
         fields.append(field);
 
-        assert(fields.generate() == "`mytable`.`FooBar` FROM `mytable`");
+        assert(fields.generate() == "`FooBar` FROM `mytable`");
     }
 
     public string generate()
@@ -81,12 +81,7 @@ class Fields : Part
 
     public void append(Field field)
     {
-        string fieldSQL = "";
-        if (this.source !is null)
-        {
-            fieldSQL ~= this.source.escapedIdentifier() ~ ".";
-        }
-        this.fields ~= fieldSQL ~ field.generate();
+        this.fields ~= field.generate();
     }
 
     unittest
