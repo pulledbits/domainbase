@@ -1,4 +1,7 @@
 {
-	"versions": {},
-	"fileVersion": 1
+	"fileVersion": 1,
+	"versions": {
+		"dunit": "1.0.12",
+		"mysql-d": "0.3.3"
+	}
 }

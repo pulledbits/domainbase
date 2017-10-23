@@ -1,47 +1,53 @@
-import std.array;
-import column;
+module sql.select;
 
+import sql.part;
+import sql.fields;
+import sql.field;
 
-class Select {
-	
-	private string[] fields;
-	private Source source;
-	
-	public this(Source source) {
-		this.source = source;
-	}
-	
-	public string generate() {
-		string fields;
-		if (this.fields.length == 0) {
-			fields = "*";
-		} else {
-			fields = join(this.fields, ", ");
-		}
-		return this.source.appendIdentifier("SELECT " ~ fields ~ " FROM ");
-	}
-	
-	public void select(Column column) {
-		this.fields ~= column.identify();
-	}
-	
-	
-} unittest {
-	Source table = new class Source {
-		public string appendIdentifier(string query) {
-			return query ~ "mytable";
-		}
-	};
-	
-	Select query = new Select(table);
-	assert(query.generate() == "SELECT * FROM mytable");
-	
-	query.select(new Column("foo", table));
-	assert(query.generate() == "SELECT mytable.foo FROM mytable");
-	
-	query.select(new Column("bar", table));
-	assert(query.generate() == "SELECT mytable.foo, mytable.bar FROM mytable");
-	
-	query.select(new Column("test", table));
-	assert(query.generate() == "SELECT mytable.foo, mytable.bar, mytable.test FROM mytable");
+class Select : Part
+{
+    private string sourceEscapedIdentifier;
+    private Fields fields;
+
+    public this(Fields fields)
+    {
+        this.fields = fields;
+    }
+
+    public this(Fields fields, string sourceEscapedIdentifier)
+    {
+        this.fields                  = fields;
+        this.sourceEscapedIdentifier = sourceEscapedIdentifier;
+    }
+
+    public string generate()
+    {
+        string sql = "SELECT " ~ this.fields.generate();
+        if (this.sourceEscapedIdentifier !is null)
+        {
+            sql ~= " FROM " ~ this.sourceEscapedIdentifier;
+        }
+        return sql;
+    }
+    unittest
+    {
+        Fields fields = new Fields();
+        Field  field  = new class Field
+        {
+            public string generate()
+            {
+                return "FooBar";
+            }
+        };
+        fields.append(field);
+        Select query = new Select(fields);
+
+        assert(query.generate() == "SELECT FooBar");
+    }
+    unittest
+    {
+        Fields fields = new Fields();
+        Select query  = new Select(fields, "`mytable`");
+        assert(query.generate() == "SELECT NULL FROM `mytable`");
+    }
 }
