@@ -1,7 +1,0 @@
-{
-	"name" : "modeld",
-	"description" : "Hello World - A minimal DUB bundle.",
-	"dependencies" : {
-		"mysql-d": "~>0.3.3"
-	}
-}
